@@ -66,9 +66,9 @@ function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
-     const res = await axios.get(
-  `${import.meta.env.VITE_API_URL}/api/leaves/admin/stats`
-);
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/leaves/admin/stats`
+      );
 
       setStats(res.data);
     } catch (error) {
@@ -82,9 +82,9 @@ function AdminDashboard() {
 
   const fetchLeaves = async () => {
     try {
-     const res = await axios.get(
-  `${import.meta.env.VITE_API_URL}/api/leaves/admin/all`
-);
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/leaves/admin/all`
+      );
 
       setLeaves(res.data);
     } catch (error) {
@@ -137,12 +137,12 @@ function AdminDashboard() {
     try {
       if (type === "approve") {
         await axios.put(
-  `${import.meta.env.VITE_API_URL}/api/leaves/admin/${leaveId}/approve`
-);
+          `${import.meta.env.VITE_API_URL}/api/leaves/admin/${leaveId}/approve`
+        );
       } else {
         await axios.put(
-  `${import.meta.env.VITE_API_URL}/api/leaves/admin/${leaveId}/reject`
-);
+          `${import.meta.env.VITE_API_URL}/api/leaves/admin/${leaveId}/reject`
+        );
       }
 
       // Close popup
@@ -151,7 +151,6 @@ function AdminDashboard() {
       // Immediately refresh admin data
       await fetchStats();
       await fetchLeaves();
-
     } catch (error) {
       console.error("Action error:", error);
 
@@ -185,7 +184,11 @@ function AdminDashboard() {
   // =========================
 
   if (!user) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 text-gray-600">
+        Loading...
+      </div>
+    );
   }
 
   // =========================
@@ -197,49 +200,138 @@ function AdminDashboard() {
 
       {/* ================= NAVBAR ================= */}
 
-      <nav className="bg-purple-600 text-white px-6 py-4 flex justify-between items-center">
+      <nav
+        className="
+          bg-purple-600
+          text-white
+          px-4
+          sm:px-6
+          py-4
+        "
+      >
+        <div
+          className="
+            max-w-7xl
+            mx-auto
+            flex
+            flex-col
+            md:flex-row
+            md:items-center
+            md:justify-between
+            gap-4
+          "
+        >
 
-        <h1 className="text-xl font-bold">
-          Leave Management System
-        </h1>
+          {/* Title */}
 
-        <div className="flex items-center gap-4">
-
-          <span>
-            Welcome{" "}
-            <span className="font-semibold">
-              {user.name}
-            </span>
-          </span>
-
-          <button
-            onClick={handleLogout}
-            className="bg-purple-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-800 transition flex items-center gap-2"
+          <h1
+            className="
+              text-xl
+              font-bold
+              leading-tight
+              text-center
+              md:text-left
+              whitespace-nowrap
+            "
           >
-            <FaSignOutAlt size={15} />
-            Logout
-          </button>
+            Leave Management System
+          </h1>
+
+
+          {/* Right Side */}
+
+          <div
+            className="
+              flex
+              flex-col
+              sm:flex-row
+              items-center
+              justify-center
+              gap-3
+              sm:gap-4
+              w-full
+              md:w-auto
+            "
+          >
+
+            {/* Welcome */}
+
+            <span
+              className="
+                text-sm
+                sm:text-base
+                whitespace-nowrap
+              "
+            >
+              Welcome{" "}
+              <span className="font-semibold">
+                {user.name}
+              </span>
+            </span>
+
+
+            {/* Logout */}
+
+            <button
+              onClick={handleLogout}
+              className="
+                bg-purple-700
+                px-4
+                py-2
+                rounded-lg
+                text-sm
+                font-medium
+                hover:bg-purple-800
+                transition
+                flex
+                items-center
+                justify-center
+                gap-2
+                whitespace-nowrap
+              "
+            >
+              <FaSignOutAlt size={15} />
+              Logout
+            </button>
+
+          </div>
 
         </div>
       </nav>
 
+
       {/* ================= MAIN ================= */}
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6 max-w-7xl mx-auto">
 
         {/* ================= HEADING ================= */}
 
-        <div className="mb-6">
+        <div className="mb-5 sm:mb-6">
 
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2
+            className="
+              text-xl
+              sm:text-2xl
+              font-bold
+              text-gray-800
+            "
+          >
             Admin Dashboard
           </h2>
 
-          <p className="text-gray-500">
+          <p
+            className="
+              text-gray-500
+              text-sm
+              sm:text-base
+              mt-1
+            "
+          >
             Manage employee leave requests and approvals.
           </p>
 
         </div>
+
 
         {/* ================= STATISTICS ================= */}
 
@@ -247,9 +339,21 @@ function AdminDashboard() {
           Overview
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
 
-          {/* Total Employees */}
+        <div
+          className="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            md:grid-cols-4
+            gap-4
+            sm:gap-5
+            mb-6
+            sm:mb-8
+          "
+        >
+
+          {/* ================= TOTAL EMPLOYEES ================= */}
 
           <div className="bg-white p-5 rounded-xl shadow">
 
@@ -261,7 +365,14 @@ function AdminDashboard() {
                   Total Employees
                 </p>
 
-                <h2 className="text-3xl font-bold text-purple-600 mt-2">
+                <h2
+                  className="
+                    text-3xl
+                    font-bold
+                    text-purple-600
+                    mt-2
+                  "
+                >
                   {stats.totalEmployees}
                 </h2>
 
@@ -276,7 +387,8 @@ function AdminDashboard() {
 
           </div>
 
-          {/* Pending */}
+
+          {/* ================= PENDING ================= */}
 
           <div className="bg-white p-5 rounded-xl shadow">
 
@@ -288,7 +400,14 @@ function AdminDashboard() {
                   Pending Leaves
                 </p>
 
-                <h2 className="text-3xl font-bold text-orange-500 mt-2">
+                <h2
+                  className="
+                    text-3xl
+                    font-bold
+                    text-orange-500
+                    mt-2
+                  "
+                >
                   {stats.pendingLeaves}
                 </h2>
 
@@ -303,7 +422,8 @@ function AdminDashboard() {
 
           </div>
 
-          {/* Approved */}
+
+          {/* ================= APPROVED ================= */}
 
           <div className="bg-white p-5 rounded-xl shadow">
 
@@ -315,7 +435,14 @@ function AdminDashboard() {
                   Approved Leaves
                 </p>
 
-                <h2 className="text-3xl font-bold text-green-600 mt-2">
+                <h2
+                  className="
+                    text-3xl
+                    font-bold
+                    text-green-600
+                    mt-2
+                  "
+                >
                   {stats.approvedLeaves}
                 </h2>
 
@@ -330,7 +457,8 @@ function AdminDashboard() {
 
           </div>
 
-          {/* Rejected */}
+
+          {/* ================= REJECTED ================= */}
 
           <div className="bg-white p-5 rounded-xl shadow">
 
@@ -342,7 +470,14 @@ function AdminDashboard() {
                   Rejected Leaves
                 </p>
 
-                <h2 className="text-3xl font-bold text-red-500 mt-2">
+                <h2
+                  className="
+                    text-3xl
+                    font-bold
+                    text-red-500
+                    mt-2
+                  "
+                >
                   {stats.rejectedLeaves}
                 </h2>
 
@@ -359,9 +494,18 @@ function AdminDashboard() {
 
         </div>
 
+
         {/* ================= LEAVE REQUESTS ================= */}
 
-        <div className="bg-white rounded-xl shadow p-5">
+        <div
+          className="
+            bg-white
+            rounded-xl
+            shadow
+            p-4
+            sm:p-5
+          "
+        >
 
           <div className="flex justify-between items-center mb-4">
 
@@ -371,55 +515,73 @@ function AdminDashboard() {
 
           </div>
 
+
           {leaves.length === 0 ? (
 
-            <p className="text-gray-500">
+            <p className="text-gray-500 text-sm sm:text-base">
               No leave requests yet.
             </p>
 
           ) : (
 
-            <div className="overflow-x-auto">
+            /*
+              Only the table scrolls horizontally.
+              The complete dashboard does not overflow.
+            */
 
-              <table className="w-full text-sm">
+            <div
+              className="
+                w-full
+                overflow-x-auto
+                rounded-lg
+              "
+            >
+
+              <table
+                className="
+                  w-full
+                  min-w-[1100px]
+                  text-sm
+                "
+              >
 
                 <thead>
 
                   <tr className="border-b text-left">
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       Employee
                     </th>
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       Leave Type
                     </th>
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       Days
                     </th>
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       Start Date
                     </th>
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       End Date
                     </th>
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       Reason
                     </th>
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       Leave Balance
                     </th>
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       Status
                     </th>
 
-                    <th className="p-3">
+                    <th className="p-3 whitespace-nowrap">
                       Action
                     </th>
 
@@ -427,30 +589,33 @@ function AdminDashboard() {
 
                 </thead>
 
+
                 <tbody>
 
                   {leaves.map((leave) => (
 
                     <tr
                       key={leave.id}
-                      className="border-b"
+                      className="border-b hover:bg-gray-50 transition"
                     >
 
                       {/* Employee */}
 
-                      <td className="p-3 font-medium">
+                      <td className="p-3 font-medium whitespace-nowrap">
                         {leave.employee_name}
                       </td>
 
+
                       {/* Leave Type */}
 
-                      <td className="p-3 capitalize">
+                      <td className="p-3 capitalize whitespace-nowrap">
                         {leave.leave_type}
                       </td>
 
+
                       {/* Days */}
 
-                      <td className="p-3 font-medium">
+                      <td className="p-3 font-medium whitespace-nowrap">
                         {calculateDays(
                           leave.start_date,
                           leave.end_date
@@ -458,29 +623,43 @@ function AdminDashboard() {
                         days
                       </td>
 
+
                       {/* Start Date */}
 
-                      <td className="p-3">
+                      <td className="p-3 whitespace-nowrap">
                         {leave.start_date}
                       </td>
 
+
                       {/* End Date */}
 
-                      <td className="p-3">
+                      <td className="p-3 whitespace-nowrap">
                         {leave.end_date}
                       </td>
 
+
                       {/* Reason */}
 
-                      <td className="p-3">
-                        {leave.reason || "-"}
+                      <td
+                        className="
+                          p-3
+                          max-w-[220px]
+                        "
+                      >
+                        <span
+                          className="block truncate"
+                          title={leave.reason || "-"}
+                        >
+                          {leave.reason || "-"}
+                        </span>
                       </td>
+
 
                       {/* Leave Balance */}
 
                       <td className="p-3">
 
-                        <div className="text-xs space-y-1">
+                        <div className="text-xs space-y-1 min-w-[130px]">
 
                           <p>
                             <span className="font-medium">
@@ -517,11 +696,20 @@ function AdminDashboard() {
 
                       </td>
 
+
                       {/* Status */}
 
                       <td className="p-3">
 
-                        <div className="flex items-center gap-2 capitalize">
+                        <div
+                          className="
+                            flex
+                            items-center
+                            gap-2
+                            capitalize
+                            whitespace-nowrap
+                          "
+                        >
 
                           <span
                             className={`w-2.5 h-2.5 rounded-full ${
@@ -531,13 +719,15 @@ function AdminDashboard() {
                                 ? "bg-red-500"
                                 : "bg-orange-400"
                             }`}
-                          ></span>
+                          >
+                          </span>
 
                           {leave.status}
 
                         </div>
 
                       </td>
+
 
                       {/* Action */}
 
@@ -554,10 +744,21 @@ function AdminDashboard() {
                                   leave.id
                                 )
                               }
-                              className="bg-green-500 text-white px-3 py-1.5 rounded-lg text-xs hover:bg-green-600"
+                              className="
+                                bg-green-500
+                                text-white
+                                px-3
+                                py-1.5
+                                rounded-lg
+                                text-xs
+                                hover:bg-green-600
+                                transition
+                                whitespace-nowrap
+                              "
                             >
                               Approve
                             </button>
+
 
                             <button
                               onClick={() =>
@@ -566,7 +767,17 @@ function AdminDashboard() {
                                   leave.id
                                 )
                               }
-                              className="bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs hover:bg-red-600"
+                              className="
+                                bg-red-500
+                                text-white
+                                px-3
+                                py-1.5
+                                rounded-lg
+                                text-xs
+                                hover:bg-red-600
+                                transition
+                                whitespace-nowrap
+                              "
                             >
                               Reject
                             </button>
@@ -575,7 +786,7 @@ function AdminDashboard() {
 
                         ) : (
 
-                          <span className="text-gray-400">
+                          <span className="text-gray-400 whitespace-nowrap">
                             Completed
                           </span>
 
@@ -599,18 +810,57 @@ function AdminDashboard() {
 
       </div>
 
+
       {/* ================= CONFIRMATION POPUP ================= */}
 
       {confirmation.show && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
-          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm mx-4">
+        <div
+          className="
+            fixed
+            inset-0
+            bg-black/40
+            flex
+            items-center
+            justify-center
+            z-50
+            p-4
+          "
+        >
 
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+          <div
+            className="
+              bg-white
+              rounded-xl
+              shadow-xl
+              p-5
+              sm:p-6
+              w-full
+              max-w-sm
+              mx-auto
+            "
+          >
+
+            <h2
+              className="
+                text-lg
+                font-semibold
+                text-gray-800
+                mb-2
+              "
+            >
               Confirm Action
             </h2>
 
-            <p className="text-gray-600 text-sm mb-6">
+
+            <p
+              className="
+                text-gray-600
+                text-sm
+                mb-6
+                leading-6
+              "
+            >
               Are you sure you want to{" "}
               <span className="font-semibold">
                 {confirmation.type === "approve"
@@ -620,26 +870,61 @@ function AdminDashboard() {
               this leave request?
             </p>
 
-            <div className="flex justify-end gap-3">
+
+            {/* Buttons */}
+
+            <div
+              className="
+                flex
+                flex-col-reverse
+                sm:flex-row
+                justify-end
+                gap-2
+                sm:gap-3
+              "
+            >
 
               {/* Cancel */}
 
               <button
                 onClick={closeConfirmation}
-                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm hover:bg-gray-100"
+                className="
+                  px-4
+                  py-2
+                  rounded-lg
+                  border
+                  border-gray-300
+                  text-gray-700
+                  text-sm
+                  hover:bg-gray-100
+                  transition
+                  w-full
+                  sm:w-auto
+                "
               >
                 Cancel
               </button>
+
 
               {/* Confirm */}
 
               <button
                 onClick={confirmAction}
-                className={`px-4 py-2 rounded-lg text-white text-sm ${
-                  confirmation.type === "approve"
-                    ? "bg-green-500 hover:bg-green-600"
-                    : "bg-red-500 hover:bg-red-600"
-                }`}
+                className={`
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                  text-sm
+                  transition
+                  w-full
+                  sm:w-auto
+                  ${
+                    confirmation.type === "approve"
+                      ? "bg-green-500 hover:bg-green-600"
+                      : "bg-red-500 hover:bg-red-600"
+                  }
+                `}
               >
                 {confirmation.type === "approve"
                   ? "Approve"
@@ -651,6 +936,7 @@ function AdminDashboard() {
           </div>
 
         </div>
+
       )}
 
     </div>

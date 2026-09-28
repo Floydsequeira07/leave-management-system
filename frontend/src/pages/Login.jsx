@@ -47,41 +47,55 @@ function Login() {
   };
 
   const handleLogin = async () => {
-  if (!validate()) return;
+    if (!validate()) return;
 
-  try {
-    const res = await axios.post(
-       `${import.meta.env.VITE_API_URL}/api/auth/login`,
-      {
-        email,
-        password,
-        role,
-      }
-    );
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          email,
+          password,
+          role,
+        }
+      );
 
-    // Save token and user information
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
+      // Save token and user information
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
-    toast.success(`${res.data.user.role} login successful`);
+      toast.success(`${res.data.user.role} login successful`);
 
-    setTimeout(() => {
-      if (res.data.user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/employee");
-      }
-    }, 1000);
+      setTimeout(() => {
+        if (res.data.user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/employee");
+        }
+      }, 1000);
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "Invalid Credentials"
+      );
+    }
+  };
 
-  } catch (err) {
-    toast.error(
-      err.response?.data?.message || "Invalid Credentials"
-    );
-  }
-};
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center px-4 md:px-6 py-6">
-
+    <div
+      className="
+        min-h-screen
+        bg-gradient-to-br
+        from-purple-100
+        to-purple-200
+        flex
+        items-center
+        justify-center
+        px-3
+        sm:px-4
+        md:px-6
+        py-4
+        sm:py-6
+      "
+    >
       <Toaster position="top-right" />
 
       {/* MAIN CONTAINER */}
@@ -108,7 +122,9 @@ function Login() {
             md:w-[320px]
             bg-purple-600
             text-white
-            p-10
+            p-6
+            sm:p-8
+            md:p-10
             flex
             flex-col
             justify-center
@@ -128,14 +144,29 @@ function Login() {
 
             {/* Logo */}
 
-            <div className="text-5xl mb-6">
+            <div
+              className="
+                text-4xl
+                sm:text-5xl
+                mb-4
+                sm:mb-6
+              "
+            >
               📋
             </div>
 
 
             {/* Heading */}
 
-            <h1 className="text-2xl font-bold mb-4">
+            <h1
+              className="
+                text-xl
+                sm:text-2xl
+                font-bold
+                mb-3
+                sm:mb-4
+              "
+            >
               Leave Management
               <br />
               System
@@ -144,7 +175,15 @@ function Login() {
 
             {/* Description */}
 
-            <p className="text-sm text-purple-100 leading-6">
+            <p
+              className="
+                text-xs
+                sm:text-sm
+                text-purple-100
+                leading-5
+                sm:leading-6
+              "
+            >
               Manage employee leaves, approvals
               and leave balances with a simple
               and efficient management system.
@@ -153,17 +192,54 @@ function Login() {
 
             {/* Features */}
 
-            <div className="mt-8 space-y-3">
+            <div
+              className="
+                mt-5
+                sm:mt-8
+                space-y-2
+                sm:space-y-3
+              "
+            >
 
-              <div className="bg-white/20 p-2 rounded-lg text-sm backdrop-blur-sm">
+              <div
+                className="
+                  bg-white/20
+                  p-2
+                  sm:p-2
+                  rounded-lg
+                  text-xs
+                  sm:text-sm
+                  backdrop-blur-sm
+                "
+              >
                 📝 Apply Leave Easily
               </div>
 
-              <div className="bg-white/20 p-2 rounded-lg text-sm backdrop-blur-sm">
+              <div
+                className="
+                  bg-white/20
+                  p-2
+                  sm:p-2
+                  rounded-lg
+                  text-xs
+                  sm:text-sm
+                  backdrop-blur-sm
+                "
+              >
                 ✅ Quick Leave Approval
               </div>
 
-              <div className="bg-white/20 p-2 rounded-lg text-sm backdrop-blur-sm">
+              <div
+                className="
+                  bg-white/20
+                  p-2
+                  sm:p-2
+                  rounded-lg
+                  text-xs
+                  sm:text-sm
+                  backdrop-blur-sm
+                "
+              >
                 📊 Track Leave Balance
               </div>
 
@@ -179,7 +255,8 @@ function Login() {
         <div
           className="
             flex-1
-            p-6
+            p-5
+            sm:p-6
             md:p-10
             md:pt-16
           "
@@ -187,11 +264,30 @@ function Login() {
 
           {/* Heading */}
 
-          <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">
+          <h1
+            className="
+              text-2xl
+              sm:text-3xl
+              font-bold
+              text-center
+              mb-4
+              sm:mb-6
+              text-purple-600
+            "
+          >
             Welcome Back
           </h1>
 
-          <p className="text-gray-500 text-sm text-center mb-6">
+          <p
+            className="
+              text-gray-500
+              text-xs
+              sm:text-sm
+              text-center
+              mb-5
+              sm:mb-6
+            "
+          >
             Login to continue to your dashboard
           </p>
 
@@ -258,12 +354,15 @@ function Login() {
 
                 singleValue: (base) => ({
                   ...base,
+
                   fontSize: "14px",
+
                   color: "#111827",
                 }),
 
                 dropdownIndicator: (base) => ({
                   ...base,
+
                   color: "#6b7280",
 
                   "&:hover": {
@@ -277,8 +376,11 @@ function Login() {
 
                 menu: (base) => ({
                   ...base,
+
                   borderRadius: "8px",
+
                   overflow: "hidden",
+
                   marginTop: "4px",
                 }),
               }}
@@ -309,7 +411,14 @@ function Login() {
             />
 
             {emailError && (
-              <p className="text-red-500 text-sm -mt-3">
+              <p
+                className="
+                  text-red-500
+                  text-xs
+                  sm:text-sm
+                  -mt-3
+                "
+              >
                 {emailError}
               </p>
             )}
@@ -352,6 +461,7 @@ function Login() {
                   text-gray-500
                   hover:text-purple-600
                   transition
+                  p-1
                 "
                 onClick={() =>
                   setShowPassword(!showPassword)
@@ -367,7 +477,14 @@ function Login() {
             </div>
 
             {passwordError && (
-              <p className="text-red-500 text-sm -mt-3">
+              <p
+                className="
+                  text-red-500
+                  text-xs
+                  sm:text-sm
+                  -mt-3
+                "
+              >
                 {passwordError}
               </p>
             )}
@@ -387,6 +504,8 @@ function Login() {
                 shadow-md
                 hover:shadow-lg
                 text-sm
+                w-full
+                active:scale-[0.99]
               "
             >
               Login

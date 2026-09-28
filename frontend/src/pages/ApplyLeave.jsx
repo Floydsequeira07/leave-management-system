@@ -34,13 +34,15 @@ function ApplyLeave() {
 
     try {
       await axios.post(
-  `${import.meta.env.VITE_API_URL}/api/leaves`, {
-        user_id: user.id,
-        leave_type: leaveType,
-        start_date: startDate,
-        end_date: endDate,
-        reason: reason,
-      });
+        `${import.meta.env.VITE_API_URL}/api/leaves`,
+        {
+          user_id: user.id,
+          leave_type: leaveType,
+          start_date: startDate,
+          end_date: endDate,
+          reason: reason,
+        }
+      );
 
       toast.success("Leave applied successfully");
 
@@ -62,168 +64,367 @@ function ApplyLeave() {
 
       <Toaster position="top-right" />
 
-      {/* Navbar */}
-      <nav className="bg-purple-600 text-white px-6 py-4 flex justify-between items-center">
+      {/* ================= NAVBAR ================= */}
 
-        <h1 className="text-xl font-bold">
+      <nav
+        className="
+          bg-purple-600
+          text-white
+          px-4
+          sm:px-6
+          py-4
+          flex
+          flex-col
+          sm:flex-row
+          justify-between
+          items-center
+          gap-3
+        "
+      >
+
+        <h1
+          className="
+            text-lg
+            sm:text-xl
+            font-bold
+            text-center
+            sm:text-left
+          "
+        >
           Leave Management System
         </h1>
 
         <button
           onClick={() => navigate("/employee")}
-          className="bg-white text-purple-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-50"
+          className="
+            bg-white
+            text-purple-600
+            px-4
+            py-2
+            rounded-lg
+            text-sm
+            font-medium
+            hover:bg-purple-50
+            transition
+            whitespace-nowrap
+          "
         >
           Back to Dashboard
         </button>
 
       </nav>
 
-      {/* Form */}
-      <div className="max-w-2xl mx-auto p-6">
 
-        <div className="bg-white rounded-xl shadow p-6">
+      {/* ================= FORM ================= */}
 
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+      <div
+        className="
+          max-w-2xl
+          mx-auto
+          p-4
+          sm:p-6
+        "
+      >
+
+        <div
+          className="
+            bg-white
+            rounded-xl
+            shadow
+            p-5
+            sm:p-6
+          "
+        >
+
+          <h2
+            className="
+              text-xl
+              sm:text-2xl
+              font-bold
+              text-gray-800
+              mb-2
+            "
+          >
             Apply for Leave
           </h2>
 
-          <p className="text-gray-500 text-sm mb-6">
+          <p
+            className="
+              text-gray-500
+              text-sm
+              mb-6
+            "
+          >
             Submit your leave request for approval.
           </p>
+
+
+          {/* ================= FORM ================= */}
 
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-5"
           >
 
-            {/* Leave Type */}
+            {/* ================= LEAVE TYPE ================= */}
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+
+              <label
+                className="
+                  block
+                  text-sm
+                  font-medium
+                  text-gray-700
+                  mb-2
+                "
+              >
                 Leave Type
               </label>
 
               <Select
-  options={[
-    { value: "casual", label: "Casual Leave" },
-    { value: "sick", label: "Sick Leave" },
-    { value: "earned", label: "Earned Leave" },
-  ]}
-  defaultValue={{
-    value: "casual",
-    label: "Casual Leave",
-  }}
-  onChange={(selectedOption) =>
-    setLeaveType(selectedOption.value)
-  }
-  styles={{
-    control: (base, state) => ({
-      ...base,
-      minHeight: "46px",
-      borderColor: state.isFocused
-        ? "#a855f7"
-        : "#d1d5db",
-      boxShadow: state.isFocused
-        ? "0 0 0 2px #e9d5ff"
-        : "none",
-      "&:hover": {
-        borderColor: "#a855f7",
-      },
-      padding: "3px",
-      borderRadius: "8px",
-      outline: "none",
-      fontSize: "14px",
-    }),
+                options={[
+                  {
+                    value: "casual",
+                    label: "Casual Leave",
+                  },
+                  {
+                    value: "sick",
+                    label: "Sick Leave",
+                  },
+                  {
+                    value: "earned",
+                    label: "Earned Leave",
+                  },
+                ]}
+                defaultValue={{
+                  value: "casual",
+                  label: "Casual Leave",
+                }}
+                onChange={(selectedOption) =>
+                  setLeaveType(selectedOption.value)
+                }
+                styles={{
+                  control: (base, state) => ({
+                    ...base,
 
-    option: (base, state) => ({
-      ...base,
-      backgroundColor: state.isSelected
-        ? "#a855f7"
-        : state.isFocused
-        ? "#f3e8ff"
-        : "white",
-      color: state.isSelected
-        ? "white"
-        : "black",
-      cursor: "pointer",
-      fontSize: "14px",
-      padding: "10px 12px",
-    }),
+                    minHeight: "46px",
 
-    singleValue: (base) => ({
-      ...base,
-      fontSize: "14px",
-      color: "#111827",
-    }),
+                    borderColor: state.isFocused
+                      ? "#a855f7"
+                      : "#d1d5db",
 
-    dropdownIndicator: (base) => ({
-      ...base,
-      color: "#6b7280",
-      "&:hover": {
-        color: "#a855f7",
-      },
-    }),
+                    boxShadow: state.isFocused
+                      ? "0 0 0 2px #e9d5ff"
+                      : "none",
 
-    indicatorSeparator: () => ({
-      display: "none",
-    }),
+                    "&:hover": {
+                      borderColor: "#a855f7",
+                    },
 
-    menu: (base) => ({
-      ...base,
-      borderRadius: "8px",
-      overflow: "hidden",
-      marginTop: "4px",
-    }),
-  }}
-/>
+                    padding: "3px",
+
+                    borderRadius: "8px",
+
+                    outline: "none",
+
+                    fontSize: "14px",
+                  }),
+
+                  option: (base, state) => ({
+                    ...base,
+
+                    backgroundColor: state.isSelected
+                      ? "#a855f7"
+                      : state.isFocused
+                      ? "#f3e8ff"
+                      : "white",
+
+                    color: state.isSelected
+                      ? "white"
+                      : "black",
+
+                    cursor: "pointer",
+
+                    fontSize: "14px",
+
+                    padding: "10px 12px",
+                  }),
+
+                  singleValue: (base) => ({
+                    ...base,
+
+                    fontSize: "14px",
+
+                    color: "#111827",
+                  }),
+
+                  dropdownIndicator: (base) => ({
+                    ...base,
+
+                    color: "#6b7280",
+
+                    "&:hover": {
+                      color: "#a855f7",
+                    },
+                  }),
+
+                  indicatorSeparator: () => ({
+                    display: "none",
+                  }),
+
+                  menu: (base) => ({
+                    ...base,
+
+                    borderRadius: "8px",
+
+                    overflow: "hidden",
+
+                    marginTop: "4px",
+
+                    zIndex: 50,
+                  }),
+                }}
+              />
+
             </div>
 
-            {/* Start Date */}
+
+            {/* ================= START DATE ================= */}
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+
+              <label
+                className="
+                  block
+                  text-sm
+                  font-medium
+                  text-gray-700
+                  mb-2
+                "
+              >
                 Start Date
               </label>
 
               <input
                 type="date"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg p-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                onChange={(e) =>
+                  setStartDate(e.target.value)
+                }
+                className="
+                  w-full
+                  border
+                  border-gray-300
+                  rounded-lg
+                  p-3
+                  outline-none
+                  focus:border-purple-500
+                  focus:ring-2
+                  focus:ring-purple-200
+                  text-sm
+                  bg-white
+                "
               />
+
             </div>
 
-            {/* End Date */}
+
+            {/* ================= END DATE ================= */}
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+
+              <label
+                className="
+                  block
+                  text-sm
+                  font-medium
+                  text-gray-700
+                  mb-2
+                "
+              >
                 End Date
               </label>
 
               <input
                 type="date"
                 value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg p-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                onChange={(e) =>
+                  setEndDate(e.target.value)
+                }
+                className="
+                  w-full
+                  border
+                  border-gray-300
+                  rounded-lg
+                  p-3
+                  outline-none
+                  focus:border-purple-500
+                  focus:ring-2
+                  focus:ring-purple-200
+                  text-sm
+                  bg-white
+                "
               />
+
             </div>
 
-            {/* Reason */}
+
+            {/* ================= REASON ================= */}
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+
+              <label
+                className="
+                  block
+                  text-sm
+                  font-medium
+                  text-gray-700
+                  mb-2
+                "
+              >
                 Reason
               </label>
 
               <textarea
                 value={reason}
-                onChange={(e) => setReason(e.target.value)}
+                onChange={(e) =>
+                  setReason(e.target.value)
+                }
                 placeholder="Enter reason for leave"
                 rows="4"
-                className="w-full border border-gray-300 rounded-lg p-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 resize-none"
+                className="
+                  w-full
+                  border
+                  border-gray-300
+                  rounded-lg
+                  p-3
+                  outline-none
+                  focus:border-purple-500
+                  focus:ring-2
+                  focus:ring-purple-200
+                  resize-none
+                  text-sm
+                "
               />
+
             </div>
 
-            {/* Submit */}
+
+            {/* ================= SUBMIT ================= */}
+
             <button
               type="submit"
-              className="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-lg transition font-medium"
+              className="
+                bg-purple-600
+                hover:bg-purple-700
+                text-white
+                p-3
+                rounded-lg
+                transition
+                font-medium
+                w-full
+              "
             >
               Apply Leave
             </button>

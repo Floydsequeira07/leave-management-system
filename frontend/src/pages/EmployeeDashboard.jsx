@@ -21,36 +21,36 @@ function EmployeeDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
-  if (!storedUser) {
-    navigate("/");
-    return;
-  }
+    if (!storedUser) {
+      navigate("/");
+      return;
+    }
 
-  setUser(storedUser);
+    setUser(storedUser);
 
-  // Fetch immediately
-  fetchBalance(storedUser.id);
-  fetchLeaves(storedUser.id);
-
-  // Automatically fetch every 5 seconds
-  const interval = setInterval(() => {
+    // Fetch immediately
     fetchBalance(storedUser.id);
     fetchLeaves(storedUser.id);
-  }, 1000);
 
-  // Stop polling when leaving the page
-  return () => {
-    clearInterval(interval);
-  };
-}, []);
+    // Automatically fetch every 5 seconds
+    const interval = setInterval(() => {
+      fetchBalance(storedUser.id);
+      fetchLeaves(storedUser.id);
+    }, 5000);
+
+    // Stop polling when leaving the page
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const fetchBalance = async (userId) => {
     try {
       const res = await axios.get(
-  `${import.meta.env.VITE_API_URL}/api/leaves/balance/${userId}`
-);
+        `${import.meta.env.VITE_API_URL}/api/leaves/balance/${userId}`
+      );
 
       console.log("BALANCE RESPONSE:", res.data);
 
@@ -62,9 +62,9 @@ function EmployeeDashboard() {
 
   const fetchLeaves = async (userId) => {
     try {
-       const res = await axios.get(
-  `${import.meta.env.VITE_API_URL}/api/leaves/my-leaves/${userId}`
-);
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/leaves/my-leaves/${userId}`
+      );
 
       setLeaves(res.data);
     } catch (error) {
@@ -75,6 +75,7 @@ function EmployeeDashboard() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+
     navigate("/");
   };
 
@@ -85,61 +86,184 @@ function EmployeeDashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
 
-      {/* Navbar */}
-      <nav className="bg-purple-600 text-white px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">
-          Leave Management System
-        </h1>
+      {/* ================= NAVBAR ================= */}
 
-        <div className="flex items-center gap-4">
-          <span>
-            Welcome{" "}
-            <span className="font-semibold">
-              {user.name}
-            </span>
-          </span>
+<nav
+  className="
+    bg-purple-600
+    text-white
+    px-4
+    sm:px-6
+    py-4
+  "
+>
+  <div
+    className="
+      max-w-7xl
+      mx-auto
+      flex
+      flex-col
+      md:flex-row
+      md:items-center
+      md:justify-between
+      gap-4
+    "
+  >
 
-          <button
-            onClick={() => navigate("/apply-leave")}
-            className="bg-white text-purple-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-50 transition flex items-center gap-2"
-          >
-            <FaCalendarPlus size={15} />
-            Apply Leave
-          </button>
+    {/* ================= TITLE ================= */}
 
-          <button
-            onClick={handleLogout}
-            className="bg-purple-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-800 transition flex items-center gap-2"
-          >
-            <FaSignOutAlt size={15} />
-            Logout
-          </button>
-        </div>
-      </nav>
+    <h1
+      className="
+        text-xl
+        sm:text-xl
+        font-bold
+        leading-tight
+        text-center
+        md:text-left
+        whitespace-nowrap
+      "
+    >
+      Leave Management System
+    </h1>
 
-      {/* Main Content */}
-      <div className="p-6">
 
-        {/* Welcome */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">
+    {/* ================= RIGHT SIDE ================= */}
+
+    <div
+      className="
+        flex
+        flex-col
+        sm:flex-row
+        items-center
+        justify-center
+        gap-3
+        sm:gap-4
+        w-full
+        md:w-auto
+      "
+    >
+
+      {/* Welcome */}
+
+      <span
+        className="
+          text-sm
+          sm:text-base
+          whitespace-nowrap
+        "
+      >
+        Welcome{" "}
+        <span className="font-semibold">
+          {user.name}
+        </span>
+      </span>
+
+
+      {/* Buttons */}
+
+      <div className="flex items-center gap-2 sm:gap-3">
+
+        {/* Apply Leave */}
+
+        <button
+          onClick={() => navigate("/apply-leave")}
+          className="
+            bg-white
+            text-purple-600
+            px-4
+            py-2
+            rounded-lg
+            text-sm
+            font-medium
+            hover:bg-purple-50
+            transition
+            flex
+            items-center
+            justify-center
+            gap-2
+            whitespace-nowrap
+          "
+        >
+          <FaCalendarPlus size={15} />
+          Apply Leave
+        </button>
+
+
+        {/* Logout */}
+
+        <button
+          onClick={handleLogout}
+          className="
+            bg-purple-700
+            px-4
+            py-2
+            rounded-lg
+            text-sm
+            font-medium
+            hover:bg-purple-800
+            transition
+            flex
+            items-center
+            justify-center
+            gap-2
+            whitespace-nowrap
+          "
+        >
+          <FaSignOutAlt size={15} />
+          Logout
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</nav>
+
+
+      {/* ================= MAIN CONTENT ================= */}
+
+      <div className="p-4 sm:p-6">
+
+        {/* ================= WELCOME ================= */}
+
+        <div className="mb-5 sm:mb-6">
+
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
             Employee Dashboard
           </h2>
 
-          <p className="text-gray-500">
+          <p className="text-gray-500 text-sm sm:text-base mt-1">
             Manage your leave requests and leave balance.
           </p>
+
         </div>
 
-        {/* Leave Balance */}
+
+        {/* ================= LEAVE BALANCE ================= */}
+
         <h3 className="text-lg font-semibold mb-4">
           Leave Balance
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
 
-          {/* Casual Leave */}
+        <div
+          className="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            md:grid-cols-4
+            gap-4
+            sm:gap-5
+            mb-6
+            sm:mb-8
+          "
+        >
+
+          {/* ================= CASUAL LEAVE ================= */}
+
           <div className="bg-white p-5 rounded-xl shadow">
+
             <p className="text-gray-500 text-sm">
               Casual Leave
             </p>
@@ -153,6 +277,7 @@ function EmployeeDashboard() {
             </p>
 
             <div className="mt-3 border-t pt-3">
+
               <p className="text-gray-500 text-sm">
                 Remaining
               </p>
@@ -160,14 +285,20 @@ function EmployeeDashboard() {
               <p className="text-xl font-semibold text-gray-800">
                 {balance.casual_leave}
               </p>
+
             </div>
-             <p className="text-gray-400 text-xs mt-1">
+
+            <p className="text-gray-400 text-xs mt-1">
               Days
             </p>
+
           </div>
 
-          {/* Sick Leave */}
+
+          {/* ================= SICK LEAVE ================= */}
+
           <div className="bg-white p-5 rounded-xl shadow">
+
             <p className="text-gray-500 text-sm">
               Sick Leave
             </p>
@@ -181,6 +312,7 @@ function EmployeeDashboard() {
             </p>
 
             <div className="mt-3 border-t pt-3">
+
               <p className="text-gray-500 text-sm">
                 Remaining
               </p>
@@ -188,14 +320,20 @@ function EmployeeDashboard() {
               <p className="text-xl font-semibold text-gray-800">
                 {balance.sick_leave}
               </p>
+
             </div>
-             <p className="text-gray-400 text-xs mt-1">
+
+            <p className="text-gray-400 text-xs mt-1">
               Days
             </p>
+
           </div>
 
-          {/* Earned Leave */}
+
+          {/* ================= EARNED LEAVE ================= */}
+
           <div className="bg-white p-5 rounded-xl shadow">
+
             <p className="text-gray-500 text-sm">
               Earned Leave
             </p>
@@ -209,6 +347,7 @@ function EmployeeDashboard() {
             </p>
 
             <div className="mt-3 border-t pt-3">
+
               <p className="text-gray-500 text-sm">
                 Remaining
               </p>
@@ -216,14 +355,20 @@ function EmployeeDashboard() {
               <p className="text-xl font-semibold text-gray-800">
                 {balance.earned_leave}
               </p>
+
             </div>
-             <p className="text-gray-400 text-xs mt-1">
+
+            <p className="text-gray-400 text-xs mt-1">
               Days
             </p>
+
           </div>
 
-          {/* Unpaid Leave */}
+
+          {/* ================= UNPAID LEAVE ================= */}
+
           <div className="bg-white p-5 rounded-xl shadow">
+
             <p className="text-gray-500 text-sm">
               Unpaid Leave (LOP)
             </p>
@@ -235,60 +380,106 @@ function EmployeeDashboard() {
             <p className="text-gray-400 text-xs mt-1">
               Days
             </p>
+
           </div>
 
         </div>
 
-        {/* Leave History */}
-        <div className="bg-white rounded-xl shadow p-5">
+
+        {/* ================= LEAVE HISTORY ================= */}
+
+        <div className="bg-white rounded-xl shadow p-4 sm:p-5">
 
           <h3 className="text-lg font-semibold mb-4">
             Recent Leave Requests
           </h3>
 
+
           {leaves.length === 0 ? (
-            <p className="text-gray-500">
+
+            <p className="text-gray-500 text-sm sm:text-base">
               No leave requests yet.
             </p>
-          ) : (
-            <div className="overflow-x-auto">
 
-              <table className="w-full text-sm">
+          ) : (
+
+            /*
+              Only the table scrolls horizontally on small screens.
+              The rest of the dashboard remains responsive.
+            */
+
+            <div className="w-full overflow-x-auto">
+
+              <table className="w-full min-w-[700px] text-sm">
 
                 <thead>
+
                   <tr className="border-b text-left">
-                    <th className="p-3">Leave Type</th>
-                    <th className="p-3">Start Date</th>
-                    <th className="p-3">End Date</th>
-                    <th className="p-3">Reason</th>
-                    <th className="p-3">Status</th>
+
+                    <th className="p-3 whitespace-nowrap">
+                      Leave Type
+                    </th>
+
+                    <th className="p-3 whitespace-nowrap">
+                      Start Date
+                    </th>
+
+                    <th className="p-3 whitespace-nowrap">
+                      End Date
+                    </th>
+
+                    <th className="p-3 whitespace-nowrap">
+                      Reason
+                    </th>
+
+                    <th className="p-3 whitespace-nowrap">
+                      Status
+                    </th>
+
                   </tr>
+
                 </thead>
 
+
                 <tbody>
+
                   {leaves.map((leave) => (
+
                     <tr
                       key={leave.id}
                       className="border-b"
                     >
-                      <td className="p-3 capitalize">
+
+                      <td className="p-3 capitalize whitespace-nowrap">
                         {leave.leave_type}
                       </td>
 
-                      <td className="p-3">
+
+                      <td className="p-3 whitespace-nowrap">
                         {leave.start_date}
                       </td>
 
-                      <td className="p-3">
+
+                      <td className="p-3 whitespace-nowrap">
                         {leave.end_date}
                       </td>
 
-                      <td className="p-3">
+
+                      <td
+                        className="
+                          p-3
+                          max-w-[250px]
+                          truncate
+                        "
+                        title={leave.reason || "-"}
+                      >
                         {leave.reason || "-"}
                       </td>
 
+
                       <td className="p-3">
-                        <div className="flex items-center gap-2 capitalize">
+
+                        <div className="flex items-center gap-2 capitalize whitespace-nowrap">
 
                           <span
                             className={`w-2.5 h-2.5 rounded-full ${
@@ -298,19 +489,25 @@ function EmployeeDashboard() {
                                 ? "bg-red-500"
                                 : "bg-orange-400"
                             }`}
-                          ></span>
+                          >
+                          </span>
 
                           {leave.status}
 
                         </div>
+
                       </td>
+
                     </tr>
+
                   ))}
+
                 </tbody>
 
               </table>
 
             </div>
+
           )}
 
         </div>
