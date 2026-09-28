@@ -147,5 +147,3 @@ Responsive Tailwind CSS classes are used for:
 
 
 
-
-└── README.md
