@@ -1,16 +1,175 @@
-# React + Vite
+# Leave Management System — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React.js frontend for the Leave Management System developed as part of the Full Stack Developer selection task for **Exelon Circuits Pvt. Ltd.**
 
-Currently, two official plugins are available:
+The frontend provides separate interfaces for employees and administrators to manage leave applications, leave balances, leave history, and leave approvals.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The application is responsive and works across desktop, tablet, and mobile devices.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 1. Project Overview
 
-## Expanding the Oxlint configuration
+The frontend is built using React.js and communicates with the backend through REST APIs.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### Employee
+
+Employees can:
+
+- Log in
+- View their leave balance
+- Apply for leave
+- View leave history
+- Track pending, approved, and rejected requests
+- View Casual, Sick, Earned, and LOP leave balances
+
+### Admin
+
+Administrators can:
+
+- Log in using the Admin role
+- View dashboard statistics
+- View all employee leave requests
+- View employee leave balances
+- Approve leave requests
+- Reject leave requests
+- View request status
+- Automatically refresh leave information
+
+---
+
+# 2. Features
+
+## Employee Features
+
+- Employee login
+- Role-based login
+- Employee dashboard
+- Casual Leave balance
+- Sick Leave balance
+- Earned Leave balance
+- Unpaid Leave / LOP
+- Apply for leave
+- Leave type selection
+- Start and end date selection
+- Leave reason
+- Leave history
+- Leave request status
+- Automatic balance and request refresh
+- Logout
+
+## Admin Features
+
+- Admin login
+- Admin dashboard
+- Total employee count
+- Pending leave count
+- Approved leave count
+- Rejected leave count
+- View all leave requests
+- View employee leave balances
+- Approve leave requests
+- Reject leave requests
+- Confirmation popup before approval/rejection
+- Automatic dashboard refresh
+- Logout
+
+---
+
+# 3. Leave Management
+
+The frontend supports the following leave types:
+
+- Casual Leave
+- Sick Leave
+- Earned Leave
+- Unpaid Leave / LOP
+
+The backend handles the leave balance calculation and approval logic.
+
+When a leave request is approved:
+
+1. Available paid leave is checked.
+2. The corresponding paid leave balance is deducted.
+3. If the requested days exceed the available paid leave, the excess is counted as LOP.
+4. Pending requests do not reduce the balance.
+5. Rejected requests do not reduce the balance.
+6. Paid leave balances cannot become negative.
+
+---
+
+# 4. Responsive Design
+
+The frontend is designed for:
+
+- Desktop
+- Laptop
+- Tablet
+- Mobile
+
+Responsive Tailwind CSS classes are used for:
+
+- Navigation
+- Dashboard cards
+- Forms
+- Tables
+- Buttons
+- Leave request sections
+- Admin dashboard
+- Employee dashboard
+
+---
+
+# 5. Technology Stack
+
+## Frontend
+
+- React.js
+- JavaScript
+- Vite
+- Tailwind CSS
+- Axios
+- React Router DOM
+- React Select
+- React Hot Toast
+- React Icons
+
+## Development Tools
+
+- Visual Studio Code
+- Git
+- GitHub
+- npm
+
+## Deployment
+
+- Vercel
+
+---
+
+# 6. Project Structure
+
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── EmployeeDashboard.jsx
+│   │   ├── ApplyLeave.jsx
+│   │   ├── AdminDashboard.jsx
+│   │   
+│   │   
+│   │
+│   ├
+│   │
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+├── public/
+├── .env.local
+├── package.json
+├── vite.config.js
+└── README.md
