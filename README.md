@@ -33,8 +33,10 @@ Administrators can:
 The system uses:
 
 - React.js for the frontend
+- JavaScript for application development
 - Node.js and Express.js for the backend
 - MySQL for the database
+- Tailwind CSS for responsive UI styling
 
 ---
 
@@ -123,6 +125,7 @@ The application is intended to provide a consistent user experience across diffe
 ## Frontend
 
 - React.js
+- JavaScript
 - Vite
 - Tailwind CSS
 - Axios
