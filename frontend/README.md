@@ -145,31 +145,7 @@ Responsive Tailwind CSS classes are used for:
 
 - Vercel
 
----
-
-# 6. Project Structure
 
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   │   ├── Login.jsx
-│   │   ├── EmployeeDashboard.jsx
-│   │   ├── ApplyLeave.jsx
-│   │   ├── AdminDashboard.jsx
-│   │   
-│   │   
-│   │
-│   ├
-│   │
-│   │
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
-│
-├── public/
-├── .env.local
-├── package.json
-├── vite.config.js
+
 └── README.md
