@@ -66,9 +66,9 @@ function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/leaves/admin/stats"
-      );
+     const res = await axios.get(
+  `${import.meta.env.VITE_API_URL}/api/leaves/admin/stats`
+);
 
       setStats(res.data);
     } catch (error) {
@@ -82,9 +82,9 @@ function AdminDashboard() {
 
   const fetchLeaves = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/leaves/admin/all"
-      );
+     const res = await axios.get(
+  `${import.meta.env.VITE_API_URL}/api/leaves/admin/all`
+);
 
       setLeaves(res.data);
     } catch (error) {
@@ -137,12 +137,12 @@ function AdminDashboard() {
     try {
       if (type === "approve") {
         await axios.put(
-          `http://localhost:5000/api/leaves/admin/${leaveId}/approve`
-        );
+  `${import.meta.env.VITE_API_URL}/api/leaves/admin/${leaveId}/approve`
+);
       } else {
         await axios.put(
-          `http://localhost:5000/api/leaves/admin/${leaveId}/reject`
-        );
+  `${import.meta.env.VITE_API_URL}/api/leaves/admin/${leaveId}/reject`
+);
       }
 
       // Close popup

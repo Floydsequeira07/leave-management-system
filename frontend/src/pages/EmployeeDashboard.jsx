@@ -49,8 +49,8 @@ function EmployeeDashboard() {
   const fetchBalance = async (userId) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/leaves/balance/${userId}`
-      );
+  `${import.meta.env.VITE_API_URL}/api/leaves/balance/${userId}`
+);
 
       console.log("BALANCE RESPONSE:", res.data);
 
@@ -62,9 +62,9 @@ function EmployeeDashboard() {
 
   const fetchLeaves = async (userId) => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/leaves/my-leaves/${userId}`
-      );
+       const res = await axios.get(
+  `${import.meta.env.VITE_API_URL}/api/leaves/my-leaves/${userId}`
+);
 
       setLeaves(res.data);
     } catch (error) {

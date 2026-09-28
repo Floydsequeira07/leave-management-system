@@ -33,7 +33,8 @@ function ApplyLeave() {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/leaves", {
+      await axios.post(
+  `${import.meta.env.VITE_API_URL}/api/leaves`, {
         user_id: user.id,
         leave_type: leaveType,
         start_date: startDate,
